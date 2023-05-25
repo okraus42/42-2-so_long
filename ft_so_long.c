@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   testmandelbrot.c                                   :+:      :+:    :+:   */
+/*   ft_so_long.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 15:35:23 by okraus            #+#    #+#             */
-/*   Updated: 2023/05/22 16:37:24 by okraus           ###   ########.fr       */
+/*   Updated: 2023/05/25 17:50:52 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,7 @@
 #include <stdbool.h>
 #include <math.h>
 #include "MLX42/include/MLX42/MLX42.h"
-
-#define WIDTH 512
-#define HEIGHT 512
+#include "header/so_long.h"
 
 static mlx_image_t* image;
 
@@ -57,33 +55,7 @@ bool mlx_is_scroll_out(mlx_t* mlx, scroll_key_t key)
 // 	unsigned char	green;
 // 	unsigned char	red;
 // }	t_colour;
-typedef struct data_s
-{
-	int			x;
-	int			y;
-	int			z;
-	int			temp2;
-	int			iter;
-	int			c;
-	long double	x0;
-	long double	y0;
-	long double	l;
-	long double	alp;	//default alp
-	long double	alpha; //final alpha
-	int			amag; //magnitude of alpha
-	int			afract;
-	long double	power;
-	long double	tmp[2];
-	long double	zxy[2];
-	long double	cxy[2];
-	long double	temp;
-} data_t;
 
-typedef struct max_s
-{
-	mlx_t*		mlx;
-	data_t*  	data;
-} max_t;
 
 union u_colour
 {
@@ -323,7 +295,170 @@ void ft_hook(void* param)
 
 // -----------------------------------------------------------------------------
 
-int32_t main(int32_t argc, const char* argv[])
+void	ft_init_map(map_t* map)
+{
+	map->m = NULL;
+	map->w = 0;
+	map->h = 0;
+	map->p = 0;
+	map->px = 0;
+	map->py = 0;
+	map->ct = 0;
+	map->cr = 0;
+	map->c = NULL;
+	map->cx = NULL;
+	map->cy = NULL;
+	map->et = 0;
+	map->e = NULL;
+	map->ex = NULL;
+	map->ey = NULL;
+	map->x = 0;
+	map->xx = 0;
+	map->xy = 0;
+}
+
+void	ft_flood_map(map_t* map, int x, int y)
+{
+	if (map->m[y][x] == '1' || map->m[y][x] > 'a')
+		return ;
+	if (map->m[y][x] == '0')
+		map->m[y][x] = 'O';
+	map->m[y][x] += 32;
+	ft_flood_map(map, x + 1, y);
+	ft_flood_map(map, x - 1, y);
+	ft_flood_map(map, x, y + 1);
+	ft_flood_map(map, x, y - 1);
+}
+
+void	ft_check_flood(map_t* map)
+{
+	int	x;
+	int	y;
+	int	z;
+
+	y = 1;
+	z = 0;
+	while (y < map->h - 1)
+	{
+		x = 1;
+		while(x < map->w - 1)
+		{
+			if (map->m[y][x] == 'E' || map->m[y][x] == 'C')
+			{
+				ft_printf("not flooded\n");
+				exit(6);
+			}
+			if (map->m[y][x] == 'c')
+				map->c++;
+			if (map->m[y][x] == 's' || map->m[y][x] == 'S')
+				map->e++;
+			x++;
+		}
+		y++;
+	}
+}
+
+void	ft_check_map(map_t* map)
+{
+	int	x;
+	int	y;
+	int	z;
+
+	y = 0;
+	z = 0;
+	while (y < map->h)
+	{
+		x = 0;
+		while(map->m[y][x])
+		{
+			if (y == 0 || y == map->h - 1 || x == 0 || x == map->w - 1)
+			{
+				if (map->m[y][x] != '1')
+				{
+					ft_printf("Wall ko%i,%i\n", x , y);
+					exit(3);
+				}
+				ft_printf("Wall ok%i,%i\n", x , y);
+			}
+			else if (map->m[y][x] == 'P' && !(z & 1))
+			{
+				ft_printf("player position found%i, %i, %i\n", z, x , y);
+				map->px = x;
+				map->py = y;
+				z += 1;
+			}
+			else if (map->m[y][x] == 'E' && !(z & 2))
+			{
+				map->xx = x;
+				map->xy = y;
+				z += 2;
+			}
+			else if (map->m[y][x] != '1' && map->m[y][x] != '0'
+				&& map->m[y][x] != 'C' && map->m[y][x] != 'S')
+			{
+				ft_printf("invalid or duplicated char\n");
+				exit(4);
+			}
+			x++;
+		}
+		if (x < 3 || x != map->w)
+		{
+			ft_printf("width\n");
+			exit(2);
+		}
+		y++;
+	}
+}
+
+void	ft_test_map(map_t* map)
+{
+	int	error;
+
+	error = 0;
+	if (map->h < 3)
+		exit(2);
+	ft_check_map(map);
+	printf("map ok\n");
+	ft_flood_map(map, map->px, map->py);
+	ft_put_strarray(map->m);
+	ft_check_flood(map);
+}
+
+void	ft_fill_map(map_t* map, char* mapfile)
+{
+	int		fd;
+	char	*gamemap;
+	char	*line;
+
+	fd = open(mapfile, O_RDONLY);
+	if (fd < 0)
+		exit(-1);
+	line = get_next_line(fd);
+	gamemap = ft_strdup("");
+	map->w = ft_strlen(line) - 1;
+	while (line)
+	{
+		gamemap = ft_strjoin_freeleft(gamemap, line);
+		free (line);
+		line = get_next_line(fd);
+		map->h++;
+	}
+	map->m = ft_split(gamemap, '\n');
+	ft_put_strarray(map->m);
+	ft_test_map(map);
+}
+
+void	ft_so_long(max_t* max, char* mapfile)
+{
+	map_t	mapt;
+
+	max->map = &mapt;
+	ft_init_map(max->map);
+	ft_fill_map(max->map, mapfile);
+
+}
+
+int32_t main(int32_t argc, char* argv[])
 {
 	mlx_t* mlx;
 	data_t	datat;
@@ -351,10 +486,15 @@ int32_t main(int32_t argc, const char* argv[])
 	data->cxy[1] = 0;
 	data->temp = 0;
 	max->data = data;
-	(void)argc;
-	(void)argv;
+	if (argc != 2)
+	{
+		ft_printf_fd(2, "%9CError%0C\n");
+		return (1);
+	}
+	ft_printf("map name is: %s\n", argv[1]);
+	ft_so_long(max, argv[1]);
 	// Gotta error check this stuff
-	if (!(mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true)))
+	if (!(mlx = mlx_init(max->map->w * 32, max->map->h * 32, "MLX42", true)))
 	{
 		puts(mlx_strerror(mlx_errno));
 		return(EXIT_FAILURE);
@@ -378,7 +518,7 @@ int32_t main(int32_t argc, const char* argv[])
 	//mlx_loop_hook(mlx, ft_colourize2, max);
 	max->data->zxy[0] = -2;
 	max->data->zxy[1] = -2;
-	mlx_loop_hook(mlx, ft_colourize3, max);
+	//mlx_loop_hook(mlx, ft_colourize3, max);
 	mlx_loop_hook(mlx, ft_hook, max);
 
 	mlx_loop(mlx);

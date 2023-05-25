@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 15:43:08 by okraus            #+#    #+#             */
-/*   Updated: 2023/05/12 18:15:12 by okraus           ###   ########.fr       */
+/*   Updated: 2023/05/25 15:38:07 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
+#ifndef SO_LONG_H
 
-# define PIPEX_H
+# define SO_LONG_H
 
 // INCLUDES
 
@@ -33,20 +33,81 @@
 // STRUCTURES
 // PIPEX structure
 
-typedef struct s_pipex_info
+typedef struct data_s
 {
-	int		ac;
-	int		fdi;
-	int		fdo;
-	int		arg;
-	int		hd;
-	int		*pids;
-	int		**pipes;
-	char	**av;
-	char	**ev;
-	char	**paths;
-	char	***args;
-}	t_pipex_info;
+	int			x;
+	int			y;
+	int			z;
+	int			temp2;
+	int			iter;
+	int			c;
+	long double	x0;
+	long double	y0;
+	long double	l;
+	long double	alp;	//default alp
+	long double	alpha; //final alpha
+	int			amag; //magnitude of alpha
+	int			afract;
+	long double	power;
+	long double	tmp[2];
+	long double	zxy[2];
+	long double	cxy[2];
+	long double	temp;
+} data_t;
+
+// typedef struct map_s
+// {
+// 	char	**m;		//map saved in array
+// 	int		w;			//width of map
+// 	int		h;			//height of map
+// 	int		p;			//player status 1-alive, 0 dead
+// 	int		px;			//player position on map the x axis
+// 	int		py;			//player position on map the y axis
+//						//add player direction?
+// 	int		ct;			//total number of collectibles
+//	int		cr;			//number of remaining collectibles
+// 	int		*c;			//collectible status 
+// 	int		*cx;		//collectible position on the x axis
+// 	int		*cy;		//collectible position on the y axis
+// 	int		et;			//total number of enemies
+// 	int		*e;			//array of enemies 0 dead, 1 alive
+// 	int		*ex;		//enemy position on map the x axis
+// 	int		*ey;		//enemy position on map the y axis
+//						//add enemy direction?
+//	int		x;			// exit status 0 closed, 1 open
+//	int		xx;		// exit X
+//	int		xy;		// exit Y
+// } map_t;
+
+typedef struct map_s
+{
+	char	**m;
+	int		w;
+	int		h;
+	int		p;
+	int		px;
+	int		py;
+	int		ct;
+	int		cr;
+	int		*c;
+	int		*cx;
+	int		*cy;
+	int		et;
+	int		*e;
+	int		*ex;
+	int		*ey;
+	int		x;
+	int		xx;
+	int		xy;
+} map_t;
+
+
+typedef struct max_s
+{
+	mlx_t*		mlx;
+	map_t*  	map;
+	data_t*  	data;
+} max_t;
 
 // typedef struct s_pipex_info
 // {
@@ -66,25 +127,5 @@ typedef struct s_pipex_info
 // PROTOTYPES
 
 //	ft_paths
-void	ft_fix_first_path(char **s);
-char	*ft_pathjoin(char *path, char *cmd);
-int		ft_paths(t_pipex_info *info);
-
-// ft_utils
-int		ft_exec(t_pipex_info *info, int n);
-int		ft_fail_exec(t_pipex_info *info, int n);
-int		ft_args(t_pipex_info *info);
-int		ft_copy_strarray(int n, char **src, char ***dst);
-int		ft_dup(int newinput, int newoutput);
-
-// ft_pipes
-void	ft_heredoc(t_pipex_info *info, int i);
-int		ft_pipes(t_pipex_info *info);
-
-// ft_getinfo
-int		ft_open_pipes(t_pipex_info *info);
-int		ft_check_files(t_pipex_info *info);
-int		ft_get_info(t_pipex_info *info, int ac, char *av[], char *ev[]);
-int		ft_free_info(t_pipex_info *info);
 
 #endif

@@ -6,7 +6,7 @@
 #    By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/14 13:43:18 by okraus            #+#    #+#              #
-#    Updated: 2023/03/19 15:45:41 by okraus           ###   ########.fr        #
+#    Updated: 2023/05/25 15:41:06 by okraus           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -104,7 +104,8 @@ SRC_EX		=	ft_abs \
 				ft_max \
 				ft_min \
 				ft_print_memory \
-				ft_print_memory_plus
+				ft_print_memory_plus \
+				ft_put_strarray
 
 # Get next line functions
 
