@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 15:35:23 by okraus            #+#    #+#             */
-/*   Updated: 2023/05/25 17:50:52 by okraus           ###   ########.fr       */
+/*   Updated: 2023/05/25 19:49:05 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -448,6 +448,58 @@ void	ft_fill_map(map_t* map, char* mapfile)
 	ft_test_map(map);
 }
 
+void	ft_domove(map_t* map, int x, int y)
+{
+	if (map->m[y][x] == 'o')
+	{
+		map->m[map->py][map->px] = 'o';
+		map->py = y;
+		map->px = x;
+		map->m[y][x] = 'p';
+	}
+}
+
+int	ft_checkmove(map_t* map, int x, int y)
+{
+	ft_printf("Check\n");
+	if (map->m[y][x] == 'o')
+		return (0);
+	if (map->m[y][x] == 'c')
+	{
+		map->c--;
+		map->m[y][x] = 'o';
+		return (0);
+	}
+	return (1);
+}
+
+void	ft_moveplayer(map_t* map, int d)
+{
+	int	t;
+	int x;
+	int y;
+
+	x = map->px;
+	y = map->py;
+	if (d == 1)
+		x++;
+	if (d == 2)
+		x--;
+	if (d == 3)
+		y++;
+	if (d == 4)
+		y--;
+	t = ft_checkmove(map, x, y);
+	if (!t)
+		ft_domove(map, x, y);
+	// else if (t == 1)
+	// 	ft_killplayer();
+	// else if (t == 2)
+	// 	ft_wingame();
+	// else if (t == 3)
+	// 	ft_stepondoor();
+}
+
 void	ft_so_long(max_t* max, char* mapfile)
 {
 	map_t	mapt;
@@ -455,7 +507,8 @@ void	ft_so_long(max_t* max, char* mapfile)
 	max->map = &mapt;
 	ft_init_map(max->map);
 	ft_fill_map(max->map, mapfile);
-
+	ft_moveplayer(max->map, 1);
+	ft_put_strarray(max->map->m);
 }
 
 int32_t main(int32_t argc, char* argv[])
