@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 15:43:08 by okraus            #+#    #+#             */
-/*   Updated: 2023/05/25 15:38:07 by okraus           ###   ########.fr       */
+/*   Updated: 2023/05/27 17:23:45 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,34 +26,18 @@
 # include <sys/types.h> //open function1
 # include <sys/stat.h> //open function2
 # include <fcntl.h> //open function3
+# include <stdio.h>
+# include <unistd.h>
+# include <stdlib.h>
+# include <stdbool.h>
+# include <math.h>
+# include "../MLX42/include/MLX42/MLX42.h"
 # include "../libft/header/libft.h"
 
 // DEFINITIONS
 
 // STRUCTURES
-// PIPEX structure
-
-typedef struct data_s
-{
-	int			x;
-	int			y;
-	int			z;
-	int			temp2;
-	int			iter;
-	int			c;
-	long double	x0;
-	long double	y0;
-	long double	l;
-	long double	alp;	//default alp
-	long double	alpha; //final alpha
-	int			amag; //magnitude of alpha
-	int			afract;
-	long double	power;
-	long double	tmp[2];
-	long double	zxy[2];
-	long double	cxy[2];
-	long double	temp;
-} data_t;
+// SO_LONG structure
 
 // typedef struct map_s
 // {
@@ -70,16 +54,18 @@ typedef struct data_s
 // 	int		*cx;		//collectible position on the x axis
 // 	int		*cy;		//collectible position on the y axis
 // 	int		et;			//total number of enemies
+//						//add enemy remaining?
 // 	int		*e;			//array of enemies 0 dead, 1 alive
 // 	int		*ex;		//enemy position on map the x axis
 // 	int		*ey;		//enemy position on map the y axis
 //						//add enemy direction?
 //	int		x;			// exit status 0 closed, 1 open
-//	int		xx;		// exit X
-//	int		xy;		// exit Y
+//	int		xx;			// exit X
+//	int		xy;			// exit Y
+//	int		steps;		// number of steps player did
 // } map_t;
 
-typedef struct map_s
+typedef struct s_map
 {
 	char	**m;
 	int		w;
@@ -99,15 +85,26 @@ typedef struct map_s
 	int		x;
 	int		xx;
 	int		xy;
-} map_t;
+	int		steps;
+}	t_map;
 
-
-typedef struct max_s
+typedef struct s_control
 {
-	mlx_t*		mlx;
-	map_t*  	map;
-	data_t*  	data;
-} max_t;
+	int		w;
+	int		s;
+	int		a;
+	int		d;
+	int		space;
+	int		ctrl;
+	int		time;
+}	t_controls;
+
+typedef struct s_max
+{
+	mlx_t		*mlx;
+	t_map		*map;
+	t_controls	*key;
+}	t_max;
 
 // typedef struct s_pipex_info
 // {
@@ -126,6 +123,29 @@ typedef struct max_s
 
 // PROTOTYPES
 
-//	ft_paths
+//	ft_draw
+void	ft_put_background(t_max *max);
+void	ft_put_collectibles(t_max *max);
+void	ft_put_door(t_max *max);
+void	ft_put_enemies(t_max *max);
+void	ft_put_player(t_max *max);
+
+//	ft_player
+void	ft_moveplayer(t_max *max, int d);
+
+//	ft_init
+void	ft_init_key(t_controls *key, int a);
+void	ft_init_map(t_map *map);
+void	ft_init_keys(t_controls *key);
+
+//	ft_update
+void	ft_update_map(t_map *map);
+
+//	ft_test
+void	ft_test_map(t_map *map);
+void	ft_check_map(t_map *map);
+void	ft_check_flood(t_map *map);
+void	ft_flood_map(t_map *map, int x, int y);
+void	ft_print_map(t_map *map);
 
 #endif
