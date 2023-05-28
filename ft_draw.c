@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 17:04:17 by okraus            #+#    #+#             */
-/*   Updated: 2023/05/27 17:24:05 by okraus           ###   ########.fr       */
+/*   Updated: 2023/05/28 12:45:37 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ void	ft_put_collectibles(t_max *max)
 			{
 				if (mlx_image_to_window(max->mlx, col_img, x * 32, y * 32) < 0)
 					exit(-5);
+				max->img->ci = col_img->instances;
 			}
 			x++;
 		}
@@ -95,11 +96,13 @@ void	ft_put_enemies(t_max *max)
 {
 	int			x;
 	int			y;
+	int			i;
 	xpm_t		*en_xpm;
 	mlx_image_t	*en_img;
 
 	x = 0;
 	y = 0;
+	i = 0;
 	en_xpm = mlx_load_xpm42("./imgs/enemy1.xpm42");
 	if (!en_xpm)
 		exit(-4);
@@ -115,6 +118,8 @@ void	ft_put_enemies(t_max *max)
 			{
 				if (mlx_image_to_window(max->mlx, en_img, x * 32, y * 32) < 0)
 					exit(-5);
+				max->img->ei = en_img->instances;
+				i++;
 			}
 			x++;
 		}
@@ -146,6 +151,7 @@ void	ft_put_door(t_max *max)
 			{
 				if (mlx_image_to_window(max->mlx, door_img, x * 32, y * 32) < 0)
 					exit(-5);
+				max->img->dci = door_img->instances;
 			}
 			x++;
 		}
@@ -178,6 +184,7 @@ void	ft_put_player(t_max *max)
 			{
 				if (mlx_image_to_window(max->mlx, play_img, x * 32, y * 32) < 0)
 					exit(-5);
+				max->img->pi = play_img->instances;
 			}
 			x++;
 		}

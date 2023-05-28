@@ -6,7 +6,7 @@
 #    By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/16 15:04:52 by okraus            #+#    #+#              #
-#    Updated: 2023/05/27 17:12:05 by okraus           ###   ########.fr        #
+#    Updated: 2023/05/28 14:04:06 by okraus           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,14 @@ LIB1	:= libft/libft.a
 LIB2	:= $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
 # SRCS	:= $(shell find ./src -iname "*.c")
 # SRCS	:= test.c
-SRCS	:= ft_so_long.c ft_test.c ft_player.c ft_init.c ft_update.c ft_draw.c
+SRCS	:=	ft_so_long.c \
+			ft_test.c \
+			ft_player.c \
+			ft_collectible.c \
+			ft_enemy.c \
+			ft_init.c \
+			ft_update.c \
+			ft_draw.c
 OBJS	:= ${SRCS:.c=.o}
 
 all: libft libmlx $(NAME)

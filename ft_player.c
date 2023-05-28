@@ -6,35 +6,53 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 17:05:57 by okraus            #+#    #+#             */
-/*   Updated: 2023/05/27 17:12:48 by okraus           ###   ########.fr       */
+/*   Updated: 2023/05/28 14:18:53 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header/so_long.h"
 
-static void	ft_domove(t_map *map, int x, int y)
+static void	ft_domovep(t_max *max, int d)
 {
-	if (map->m[y][x] == 'o')
+	if (d == 8)
 	{
-		map->m[map->py][map->px] = 'o';
-		map->py = y;
-		map->px = x;
-		map->m[y][x] = 'p';
+		max->img->pi[0].y -= 32;
+		max->map->py--;
 	}
+	if (d == 4)
+	{
+		max->img->pi[0].y += 32;
+		max->map->py++;
+	}
+	if (d == 2)
+	{
+		max->img->pi[0].x -= 32;
+		max->map->px--;
+	}
+	if (d == 1)
+	{
+		max->img->pi[0].x += 32;
+		max->map->px++;
+	}
+	ft_printf("px = %i, py = %i\n", max->map->px, max->map->py);
+	usleep(200000);
 }
 
-static int	ft_checkmovep(t_map *map, int x, int y)
+static int	ft_checkmovep(t_max *max, int x, int y)
 {
-	ft_printf("Check1\n");
-	if (map->m[y][x] == 'o')
-		return (0);
-	if (map->m[y][x] == 'c')
+	ft_printf("px = %i, py = %i", max->map->px, max->map->py);
+	if (max->map->m[y][x] != '1')
 	{
-		map->c--;
-		map->m[y][x] = 'o';
-		return (0);
+		if (max->map->m[y][x] == 'c')
+		{
+			max->map->cr--;
+			ft_remove_collectible(max, x, y);
+			if (!max->map->cr)
+				ft_open_door(max);
+			max->map->m[y][x] = 'o';
+		}
+		return (0);	
 	}
-	ft_printf("Check2\n");
 	return (1);
 }
 
@@ -46,17 +64,26 @@ void	ft_moveplayer(t_max *max, int d)
 
 	x = max->map->px;
 	y = max->map->py;
+	ft_printf("d == %i\n", d);
 	if (d == 1)
 		x++;
 	if (d == 2)
 		x--;
-	if (d == 8)
-		y++;
 	if (d == 4)
+		y++;
+	if (d == 8)
 		y--;
-	t = ft_checkmovep(max->map, x, y);
+	t = ft_checkmovep(max, x, y);
 	if (!t)
-		ft_domove(max->map, x, y);
+	{
+		ft_domovep(max, d);
+		max->map->steps++;
+		ft_moveenemies(max);
+		//check enemies
+		//check door
+		ft_printf("Steps: %i\n", max->map->steps);
+	}
+	ft_init_key(max->key, 0);
 }
 // else if (t == 1)
 // 	ft_killplayer();

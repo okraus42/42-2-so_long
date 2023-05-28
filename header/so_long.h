@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 15:43:08 by okraus            #+#    #+#             */
-/*   Updated: 2023/05/27 17:23:45 by okraus           ###   ########.fr       */
+/*   Updated: 2023/05/28 14:13:13 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,11 +99,22 @@ typedef struct s_control
 	int		time;
 }	t_controls;
 
+typedef struct s_imgs
+{
+	mlx_instance_t	*pi;
+	mlx_instance_t	*ei;
+	mlx_instance_t	*ci;
+	mlx_instance_t	*dci;
+	mlx_instance_t	*doi;
+}	t_imgs;
+
+
 typedef struct s_max
 {
 	mlx_t		*mlx;
 	t_map		*map;
 	t_controls	*key;
+	t_imgs		*img;
 }	t_max;
 
 // typedef struct s_pipex_info
@@ -132,6 +143,13 @@ void	ft_put_player(t_max *max);
 
 //	ft_player
 void	ft_moveplayer(t_max *max, int d);
+
+//	ft_enemy
+void	ft_moveenemies(t_max *max);
+
+// ft_collectible
+void	ft_remove_collectible(t_max *max, int x, int y);
+void	ft_open_door(t_max *max);
 
 //	ft_init
 void	ft_init_key(t_controls *key, int a);
