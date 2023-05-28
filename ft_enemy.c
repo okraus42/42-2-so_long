@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 12:47:19 by okraus            #+#    #+#             */
-/*   Updated: 2023/05/28 14:11:19 by okraus           ###   ########.fr       */
+/*   Updated: 2023/05/28 14:43:57 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,13 @@ static void	ft_domovee(t_max *max, int i, int d)
 
 static int	ft_checkmovee(t_map *map, int i, int x, int y)
 {
-	if (map->ey[i] > map->py + 3 && map->m[y - 1][x] != '1' && map->steps % 3)
+	if (map->ey[i] > map->py + 3 && map->m[y - 1][x] != '1' && (i + map->steps) % 4)
 		return (4);
-	if (map->ex[i] > map->px + 3 && map->m[y][x - 1] != '1' && map->steps % 3)
+	if (map->ex[i] > map->px + 3 && map->m[y][x - 1] != '1' && (i + map->steps) % 4)
 		return (3);
-	if (map->ey[i] < map->py - 2 && map->m[y + 1][x] != '1' && map->steps % 4)
+	if (map->ey[i] < map->py - 2 && map->m[y + 1][x] != '1' && (i + map->steps) % 3)
 		return (2);
-	if (map->ex[i] < map->px - 2 && map->m[y][x + 1] != '1' && map->steps % 4)
+	if (map->ex[i] < map->px - 2 && map->m[y][x + 1] != '1' && (i + map->steps) % 3)
 		return (1);
 	if (map->ex[i] < map->px && map->m[y][x + 1] != '1' && !((i + map->steps) % 2))
 		return (1);
