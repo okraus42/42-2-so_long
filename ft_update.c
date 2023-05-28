@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 17:06:11 by okraus            #+#    #+#             */
-/*   Updated: 2023/05/27 17:12:01 by okraus           ###   ########.fr       */
+/*   Updated: 2023/05/28 15:09:49 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	ft_update_map(t_map *map)
 	y = 0;
 	c = 0;
 	s = 0;
-	ft_printf("Check3\n");
 	map->cr = map->ct;
 	map->c = malloc(map->ct * sizeof(int));
 	if (!map->c)
@@ -45,7 +44,6 @@ void	ft_update_map(t_map *map)
 		if (!map->ey)
 			exit(-1);
 	}
-	ft_printf("Check3.5\n");
 	while (map->m[y])
 	{
 		x = 0;
@@ -69,5 +67,4 @@ void	ft_update_map(t_map *map)
 		}
 		y++;
 	}
-	ft_printf("Check4\n");
 }

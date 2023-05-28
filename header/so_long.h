@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 15:43:08 by okraus            #+#    #+#             */
-/*   Updated: 2023/05/28 14:13:13 by okraus           ###   ########.fr       */
+/*   Updated: 2023/05/28 15:21:27 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,26 +117,12 @@ typedef struct s_max
 	t_imgs		*img;
 }	t_max;
 
-// typedef struct s_pipex_info
-// {
-// 	int		ac;			//argc
-// 	int		fdi;		//fd of infile
-// 	int		fdo;		//fd of outfile
-//	int		arg;		//number of arguments
-//	int		hd;			//1 if argv[1] == "here_doc"
-//	int		*pids;		//pids of child processes
-//	int		**pipes;	//pipe fds
-// 	char	**av;		//*argv[]
-// 	char	**ev;		//*envp[]
-// 	char	**paths;	//array of paths from envp
-// 	char	***args;		//array of arrays of arguments
-// }	t_pipex_info;
-
 // PROTOTYPES
 
 //	ft_draw
 void	ft_put_background(t_max *max);
 void	ft_put_collectibles(t_max *max);
+void	ft_put_opendoor(t_max *max);
 void	ft_put_door(t_max *max);
 void	ft_put_enemies(t_max *max);
 void	ft_put_player(t_max *max);
@@ -146,10 +132,12 @@ void	ft_moveplayer(t_max *max, int d);
 
 //	ft_enemy
 void	ft_moveenemies(t_max *max);
+void	ft_check_enemy(t_max *max);
 
 // ft_collectible
 void	ft_remove_collectible(t_max *max, int x, int y);
 void	ft_open_door(t_max *max);
+void	ft_check_door(t_max *max);
 
 //	ft_init
 void	ft_init_key(t_controls *key, int a);

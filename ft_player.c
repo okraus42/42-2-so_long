@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 17:05:57 by okraus            #+#    #+#             */
-/*   Updated: 2023/05/28 14:18:53 by okraus           ###   ########.fr       */
+/*   Updated: 2023/05/28 15:21:02 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,10 @@ void	ft_moveplayer(t_max *max, int d)
 	{
 		ft_domovep(max, d);
 		max->map->steps++;
-		ft_moveenemies(max);
-		//check enemies
-		//check door
+		ft_check_enemy(max);
+		if (max->map->p && (max->map->steps % 2 || max->map->steps % 3))
+			ft_moveenemies(max);
+		ft_check_door(max);
 		ft_printf("Steps: %i\n", max->map->steps);
 	}
 	ft_init_key(max->key, 0);

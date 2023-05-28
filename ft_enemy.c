@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 12:47:19 by okraus            #+#    #+#             */
-/*   Updated: 2023/05/28 14:43:57 by okraus           ###   ########.fr       */
+/*   Updated: 2023/05/28 15:26:53 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,33 @@ static int	ft_checkmovee(t_map *map, int i, int x, int y)
 		return (3);
 	if (map->m[y][x + 1] != '1')
 		return (1);
-	return (i);
+	return (0);
 }
 
+void	ft_check_enemy(t_max *max)
+{
+	int	i;
+
+	i = 0;
+	while (max->map->e[i])
+	{
+		if (max->map->e[i] && max->map->px == max->map->ex[i] && max->map->py == max->map->ey[i])
+		{
+			max->map->p = 0;
+			ft_printf("You stepped on enemy and died:(\n\n\n");
+		}
+		i++;
+	}
+}
+
+void	ft_check_player(t_max *max, int i)
+{
+	if (max->map->px == max->map->ex[i] && max->map->py == max->map->ey[i])
+	{
+		max->map->p = 0;
+		ft_printf("Enemy got you and you are now dead:(\n\n\n");
+	}
+}
 
 void	ft_moveenemy(t_max *max, int i, int x, int y)
 {
@@ -84,6 +108,7 @@ void	ft_moveenemy(t_max *max, int i, int x, int y)
 	if (d)
 	{
 		ft_domovee(max, i, d);
+		ft_check_player(max, i);
 	}
 }
 

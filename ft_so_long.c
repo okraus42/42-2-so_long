@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 15:35:23 by okraus            #+#    #+#             */
-/*   Updated: 2023/05/28 12:45:10 by okraus           ###   ########.fr       */
+/*   Updated: 2023/05/28 15:07:26 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,19 +31,19 @@ void	ft_hook(void *param)
 	{
 		mlx_close_window(max->mlx);
 	}
-	if (mlx_is_key_down(max->mlx, MLX_KEY_UP))
+	if (mlx_is_key_down(max->mlx, MLX_KEY_UP) && max->map->p)
 	{
 		ft_init_key(max->key, 1);
 	}
-	if (mlx_is_key_down(max->mlx, MLX_KEY_DOWN))
+	if (mlx_is_key_down(max->mlx, MLX_KEY_DOWN) && max->map->p)
 	{
 		ft_init_key(max->key, 2);
 	}
-	if (mlx_is_key_down(max->mlx, MLX_KEY_LEFT))
+	if (mlx_is_key_down(max->mlx, MLX_KEY_LEFT) && max->map->p)
 	{
 		ft_init_key(max->key, 3);
 	}
-	if (mlx_is_key_down(max->mlx, MLX_KEY_RIGHT))
+	if (mlx_is_key_down(max->mlx, MLX_KEY_RIGHT) && max->map->p)
 	{
 		ft_init_key(max->key, 4);
 	}
@@ -90,6 +90,7 @@ void	ft_so_long2(t_max *max)
 {
 	ft_put_background(max);
 	ft_put_collectibles(max);
+	ft_put_opendoor(max);
 	ft_put_door(max);
 	ft_put_enemies(max);
 	ft_put_player(max);

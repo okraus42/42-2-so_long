@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 17:09:29 by okraus            #+#    #+#             */
-/*   Updated: 2023/05/27 17:12:03 by okraus           ###   ########.fr       */
+/*   Updated: 2023/05/28 15:12:32 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ void	ft_check_map(t_map *map)
 			else if (map->m[y][x] == 'P' && !(z & 1))
 			{
 				ft_printf("player position found%i, %i, %i\n", z, x, y);
+				map->p = 1;
 				map->px = x;
 				map->py = y;
 				z += 1;
