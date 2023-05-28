@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 12:47:19 by okraus            #+#    #+#             */
-/*   Updated: 2023/05/28 15:26:53 by okraus           ###   ########.fr       */
+/*   Updated: 2023/05/28 18:24:33 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	ft_check_enemy(t_max *max)
 		if (max->map->e[i] && max->map->px == max->map->ex[i] && max->map->py == max->map->ey[i])
 		{
 			max->map->p = 0;
-			ft_printf("You stepped on enemy and died:(\n\n\n");
+			ft_printf("\n\nYou stepped on enemy and died:(\n\n\n");
 		}
 		i++;
 	}
@@ -93,7 +93,7 @@ void	ft_check_player(t_max *max, int i)
 	if (max->map->px == max->map->ex[i] && max->map->py == max->map->ey[i])
 	{
 		max->map->p = 0;
-		ft_printf("Enemy got you and you are now dead:(\n\n\n");
+		ft_printf("\n\nEnemy got you and you are now dead:(\n\n\n");
 	}
 }
 

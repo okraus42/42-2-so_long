@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 15:43:08 by okraus            #+#    #+#             */
-/*   Updated: 2023/05/28 15:21:27 by okraus           ###   ########.fr       */
+/*   Updated: 2023/05/28 18:36:45 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ typedef struct s_imgs
 	mlx_instance_t	*pi;
 	mlx_instance_t	*ei;
 	mlx_instance_t	*ci;
+	mlx_instance_t	*c2i;
 	mlx_instance_t	*dci;
 	mlx_instance_t	*doi;
 }	t_imgs;
@@ -122,6 +123,7 @@ typedef struct s_max
 //	ft_draw
 void	ft_put_background(t_max *max);
 void	ft_put_collectibles(t_max *max);
+void	ft_put_collectibles2(t_max *max);
 void	ft_put_opendoor(t_max *max);
 void	ft_put_door(t_max *max);
 void	ft_put_enemies(t_max *max);
@@ -138,6 +140,7 @@ void	ft_check_enemy(t_max *max);
 void	ft_remove_collectible(t_max *max, int x, int y);
 void	ft_open_door(t_max *max);
 void	ft_check_door(t_max *max);
+void	ft_check_time(t_max *max);
 
 //	ft_init
 void	ft_init_key(t_controls *key, int a);

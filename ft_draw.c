@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 17:04:17 by okraus            #+#    #+#             */
-/*   Updated: 2023/05/28 14:59:44 by okraus           ###   ########.fr       */
+/*   Updated: 2023/05/28 18:34:47 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,38 @@ void	ft_put_collectibles(t_max *max)
 				if (mlx_image_to_window(max->mlx, col_img, x * 32, y * 32) < 0)
 					exit(-5);
 				max->img->ci = col_img->instances;
+			}
+			x++;
+		}
+		y++;
+	}
+}
+
+void	ft_put_collectibles2(t_max *max)
+{
+	int			x;
+	int			y;
+	xpm_t		*col2_xpm;
+	mlx_image_t	*col2_img;
+
+	x = 0;
+	y = 0;
+	col2_xpm = mlx_load_xpm42("./imgs/collectible2.xpm42");
+	if (!col2_xpm)
+		exit(-4);
+	col2_img = mlx_texture_to_image(max->mlx, &col2_xpm->texture);
+	if (!col2_img)
+		exit(-8);
+	while (max->map->m[y])
+	{
+		x = 0;
+		while (max->map->m[y][x])
+		{
+			if (max->map->m[y][x] == 'c')
+			{
+				if (mlx_image_to_window(max->mlx, col2_img, (max->map->w + x) * 32, y * 32) < 0)
+					exit(-5);
+				max->img->c2i = col2_img->instances;
 			}
 			x++;
 		}
@@ -217,9 +249,13 @@ void	ft_put_player(t_max *max)
 				if (mlx_image_to_window(max->mlx, play_img, x * 32, y * 32) < 0)
 					exit(-5);
 				max->img->pi = play_img->instances;
+				max->map->px = x;
+				max->map->py = y;
 			}
 			x++;
 		}
 		y++;
 	}
+	ft_printf("ZZp== %i, px = %i, py = %i | %p\n",
+		max->map->p, max->map->px, max->map->py, &max->map->py);
 }

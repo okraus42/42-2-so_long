@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 15:35:23 by okraus            #+#    #+#             */
-/*   Updated: 2023/05/28 15:07:26 by okraus           ###   ########.fr       */
+/*   Updated: 2023/05/28 18:40:40 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,12 @@ void	ft_game(t_max *max)
 		ft_moveplayer(max, max->key->w << 3 | max->key->s << 2
 			| max->key->a << 1 | max->key->d);
 	}
+	max->key->time++;
+	if (max->key->time > 20)
+	{
+		max->key->time = 0;
+	}
+	ft_check_time(max);
 }
 
 void	ft_hook(void *param)
@@ -31,20 +37,21 @@ void	ft_hook(void *param)
 	{
 		mlx_close_window(max->mlx);
 	}
-	if (mlx_is_key_down(max->mlx, MLX_KEY_UP) && max->map->p)
+	if (max->map->p && mlx_is_key_down(max->mlx, MLX_KEY_UP))
 	{
 		ft_init_key(max->key, 1);
 	}
-	if (mlx_is_key_down(max->mlx, MLX_KEY_DOWN) && max->map->p)
+	if (max->map->p && mlx_is_key_down(max->mlx, MLX_KEY_DOWN))
 	{
 		ft_init_key(max->key, 2);
 	}
-	if (mlx_is_key_down(max->mlx, MLX_KEY_LEFT) && max->map->p)
+	if (max->map->p && mlx_is_key_down(max->mlx, MLX_KEY_LEFT))
 	{
 		ft_init_key(max->key, 3);
 	}
-	if (mlx_is_key_down(max->mlx, MLX_KEY_RIGHT) && max->map->p)
+	if (max->map->p && mlx_is_key_down(max->mlx, MLX_KEY_RIGHT))
 	{
+		ft_printf("Player %i\n", max->map->p);
 		ft_init_key(max->key, 4);
 	}
 	ft_game(max);
@@ -79,6 +86,8 @@ void	ft_fill_map(t_map *map, char *mapfile)
 void	ft_so_long(t_max *max, char *mapfile)
 {
 	ft_init_map(max->map);
+	ft_printf("p== %i, px = %i, py = %i | %p\n",
+		max->map->p, max->map->px, max->map->py, &max->map->py);
 	ft_init_keys(max->key);
 	ft_fill_map(max->map, mapfile);
 	ft_update_map(max->map);
@@ -90,10 +99,15 @@ void	ft_so_long2(t_max *max)
 {
 	ft_put_background(max);
 	ft_put_collectibles(max);
+	ft_put_collectibles2(max);
 	ft_put_opendoor(max);
 	ft_put_door(max);
+	ft_update_map(max->map);
 	ft_put_enemies(max);
 	ft_put_player(max);
+	max->map->cr = max->map->ct;
+	max->key->time = 0;
+	ft_print_map(max->map);
 }
 
 int32_t	main(int32_t argc, char *argv[])
