@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 17:05:57 by okraus            #+#    #+#             */
-/*   Updated: 2023/05/28 18:18:47 by okraus           ###   ########.fr       */
+/*   Updated: 2023/05/29 16:53:51 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,11 @@ static void	ft_domovep(t_max *max, int d)
 		max->img->pi[0].x += 32;
 		max->map->px++;
 	}
-	ft_printf("p== %i, px = %i, py = %i | %p\n",
-		max->map->p, max->map->px, max->map->py, &max->map->py);
-	ft_print_map(max->map);
-	usleep(100000);
+	//usleep(100000);
 }
 
 static int	ft_checkmovep(t_max *max, int x, int y)
 {
-	ft_printf("p = %i, px = %i, py = %i", max->map->p, max->map->px, max->map->py);
 	if (max->map->m[y][x] != '1')
 	{
 		if (max->map->m[y][x] == 'c')
@@ -66,7 +62,6 @@ void	ft_moveplayer(t_max *max, int d)
 
 	x = max->map->px;
 	y = max->map->py;
-	ft_printf("d == %i, p == %i\n", d, max->map->p);
 	//ft_printf("p== %i, px = %i | %p, py = %i | %p\n",
 	//	max->map->p, max->map->px, &max->map->px, max->map->py, &max->map->py);
 	if (d == 1)
@@ -82,11 +77,11 @@ void	ft_moveplayer(t_max *max, int d)
 	{
 		ft_domovep(max, d);
 		max->map->steps++;
-		ft_check_enemy(max);
-		if (max->map->p && (max->map->steps % 2 || max->map->steps % 3))
+		if (max->map->et)
+			ft_check_enemy(max);
+		if (max->map->et && max->map->p && (max->map->steps % 2 || max->map->steps % 3))
 			ft_moveenemies(max);
 		ft_check_door(max);
-		ft_printf("Steps: %i\n", max->map->steps);
 	}
 	ft_init_key(max->key, 0);
 }

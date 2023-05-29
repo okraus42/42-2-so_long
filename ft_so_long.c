@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 15:35:23 by okraus            #+#    #+#             */
-/*   Updated: 2023/05/28 18:40:40 by okraus           ###   ########.fr       */
+/*   Updated: 2023/05/29 16:46:11 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,13 @@
 
 void	ft_game(t_max *max)
 {
-	if (max->key->w || max->key->a || max->key->s || max->key->d)
+	if ((max->key->w || max->key->a || max->key->s || max->key->d) && !(max->key->time))
 	{
-		ft_printf("w=%i|a=%i|s=%i|d=%i|\n", max->key->w, max->key->a, max->key->s, max->key->d);
 		ft_moveplayer(max, max->key->w << 3 | max->key->s << 2
 			| max->key->a << 1 | max->key->d);
 	}
 	max->key->time++;
-	if (max->key->time > 20)
+	if (max->key->time > 19)
 	{
 		max->key->time = 0;
 	}
@@ -51,7 +50,6 @@ void	ft_hook(void *param)
 	}
 	if (max->map->p && mlx_is_key_down(max->mlx, MLX_KEY_RIGHT))
 	{
-		ft_printf("Player %i\n", max->map->p);
 		ft_init_key(max->key, 4);
 	}
 	ft_game(max);
@@ -79,15 +77,12 @@ void	ft_fill_map(t_map *map, char *mapfile)
 		map->h++;
 	}
 	map->m = ft_split(gamemap, '\n');
-	ft_put_strarray(map->m);
 	ft_test_map(map);
 }
 
 void	ft_so_long(t_max *max, char *mapfile)
 {
 	ft_init_map(max->map);
-	ft_printf("p== %i, px = %i, py = %i | %p\n",
-		max->map->p, max->map->px, max->map->py, &max->map->py);
 	ft_init_keys(max->key);
 	ft_fill_map(max->map, mapfile);
 	ft_update_map(max->map);
@@ -107,7 +102,6 @@ void	ft_so_long2(t_max *max)
 	ft_put_player(max);
 	max->map->cr = max->map->ct;
 	max->key->time = 0;
-	ft_print_map(max->map);
 }
 
 int32_t	main(int32_t argc, char *argv[])

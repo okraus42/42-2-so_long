@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 12:47:19 by okraus            #+#    #+#             */
-/*   Updated: 2023/05/28 18:24:33 by okraus           ###   ########.fr       */
+/*   Updated: 2023/05/29 16:46:59 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 static void	ft_domovee(t_max *max, int i, int d)
 {
-	ft_printf("d = %i, e[%i]: x = %i, y = %i\n", d, i, max->map->ex[i], max->map->ey[i]);
 	if (d == 4)
 	{
 		max->img->ei[i].y -= 32;
@@ -36,7 +35,6 @@ static void	ft_domovee(t_max *max, int i, int d)
 		max->img->ei[i].x += 32;
 		max->map->ex[i]++;
 	}
-	ft_printf("d = %i, e[%i]: x = %i, y = %i\n", d, i, max->map->ex[i], max->map->ey[i]);
 }
 
 static int	ft_checkmovee(t_map *map, int i, int x, int y)
