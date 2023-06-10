@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 15:35:23 by okraus            #+#    #+#             */
-/*   Updated: 2023/05/29 16:46:11 by okraus           ###   ########.fr       */
+/*   Updated: 2023/06/10 14:57:36 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,26 @@
 
 void	ft_game(t_max *max)
 {
-	if ((max->key->w || max->key->a || max->key->s || max->key->d) && !(max->key->time))
+	if ((max->key->w || max->key->a || max->key->s || max->key->d) && !(max->key->t))
 	{
 		ft_moveplayer(max, max->key->w << 3 | max->key->s << 2
 			| max->key->a << 1 | max->key->d);
+		max->key->t++;
+	}
+	if (max->key->t && max->key->time)
+	{
+		ft_init_key(max->key, 0);
 	}
 	max->key->time++;
-	if (max->key->time > 19)
+	if (max->key->t && max->key->t < 10)
+	{
+		max->key->t++; 
+	}
+	else
+	{
+		max->key->t = 0;
+	}
+	if (max->key->time > 10)
 	{
 		max->key->time = 0;
 	}
@@ -72,12 +85,14 @@ void	ft_fill_map(t_map *map, char *mapfile)
 	while (line)
 	{
 		gamemap = ft_strjoin_freeleft(gamemap, line);
-		free (line);
+		free(line);
 		line = get_next_line(fd);
 		map->h++;
 	}
+	free(line);
 	map->m = ft_split(gamemap, '\n');
 	ft_test_map(map);
+	free(gamemap);
 }
 
 void	ft_so_long(t_max *max, char *mapfile)
@@ -97,7 +112,7 @@ void	ft_so_long2(t_max *max)
 	ft_put_collectibles2(max);
 	ft_put_opendoor(max);
 	ft_put_door(max);
-	ft_update_map(max->map);
+	//ft_update_map(max->map);
 	ft_put_enemies(max);
 	ft_put_player(max);
 	max->map->cr = max->map->ct;
@@ -131,6 +146,9 @@ int32_t	main(int32_t argc, char *argv[])
 	ft_so_long2(&max);
 	mlx_loop_hook(mlx, ft_hook, &max);
 	mlx_loop(mlx);
+	write(1, "1", 1);
+	ft_free(&max);
+	write(1, "\n", 1);
 	mlx_terminate(mlx);
 	return (EXIT_SUCCESS);
 }

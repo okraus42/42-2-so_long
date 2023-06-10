@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 17:04:17 by okraus            #+#    #+#             */
-/*   Updated: 2023/05/28 18:34:47 by okraus           ###   ########.fr       */
+/*   Updated: 2023/06/10 14:39:45 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ void	ft_put_background(t_max *max)
 		}
 		y++;
 	}
+	mlx_delete_xpm42(wall_xpm);
+	mlx_delete_xpm42(ground_xpm);
 	ft_printf("test1111\n");
 }
 
@@ -90,6 +92,7 @@ void	ft_put_collectibles(t_max *max)
 		}
 		y++;
 	}
+	mlx_delete_xpm42(col_xpm);
 }
 
 void	ft_put_collectibles2(t_max *max)
@@ -122,6 +125,7 @@ void	ft_put_collectibles2(t_max *max)
 		}
 		y++;
 	}
+	mlx_delete_xpm42(col2_xpm);
 }
 
 void	ft_put_enemies(t_max *max)
@@ -157,6 +161,7 @@ void	ft_put_enemies(t_max *max)
 		}
 		y++;
 	}
+	mlx_delete_xpm42(en_xpm);
 }
 
 void	ft_put_door(t_max *max)
@@ -189,6 +194,7 @@ void	ft_put_door(t_max *max)
 		}
 		y++;
 	}
+	mlx_delete_xpm42(door_xpm);
 }
 
 void	ft_put_opendoor(t_max *max)
@@ -221,6 +227,7 @@ void	ft_put_opendoor(t_max *max)
 		}
 		y++;
 	}
+	mlx_delete_xpm42(opendoor_xpm);
 }
 
 
@@ -258,4 +265,5 @@ void	ft_put_player(t_max *max)
 	}
 	ft_printf("ZZp== %i, px = %i, py = %i | %p\n",
 		max->map->p, max->map->px, max->map->py, &max->map->py);
+	mlx_delete_xpm42(play_xpm);
 }

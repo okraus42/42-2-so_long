@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 12:47:19 by okraus            #+#    #+#             */
-/*   Updated: 2023/05/29 16:54:00 by okraus           ###   ########.fr       */
+/*   Updated: 2023/06/10 13:42:29 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,12 @@ void	ft_check_time(t_max *max)
 	i = 0;
 	while (i < max->map->ct)
 	{
-		if (max->key->time == 4 && max->map->c[i])
+		if (max->key->time == 2 && max->map->c[i])
 		{
 			max->img->ci[i].x += 32 * max->map->w;
 			max->img->c2i[i].x -= 32 * max->map->w;
 		}
-		if (max->key->time == 16 && max->map->c[i])
+		if (max->key->time == 7 && max->map->c[i])
 		{
 			max->img->ci[i].x -= 32 * max->map->w;
 			max->img->c2i[i].x += 32 * max->map->w;

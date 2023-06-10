@@ -6,7 +6,7 @@
 #    By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/16 15:04:52 by okraus            #+#    #+#              #
-#    Updated: 2023/05/28 14:04:06 by okraus           ###   ########.fr        #
+#    Updated: 2023/06/10 13:54:05 by okraus           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,7 @@ SRCS	:=	ft_so_long.c \
 			ft_collectible.c \
 			ft_enemy.c \
 			ft_init.c \
+			ft_free.c \
 			ft_update.c \
 			ft_draw.c
 OBJS	:= ${SRCS:.c=.o}

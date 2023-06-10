@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 17:06:00 by okraus            #+#    #+#             */
-/*   Updated: 2023/05/29 15:09:20 by okraus           ###   ########.fr       */
+/*   Updated: 2023/06/10 14:06:12 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ void	ft_init_key(t_controls *key, int a)
 	key->d = 0;
 	if (a == 1)
 		key->w++;
-	if (a == 2)
+	else if (a == 2)
 		key->s++;
-	if (a == 3)
+	else if (a == 3)
 		key->a++;
-	if (a == 4)
+	else if (a == 4)
 		key->d++;
 }
 
@@ -60,4 +60,5 @@ void	ft_init_keys(t_controls *key)
 	key->space = 0;
 	key->ctrl = 0;
 	key->time = 0;
+	key->t = 0;
 }

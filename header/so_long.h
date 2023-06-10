@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 15:43:08 by okraus            #+#    #+#             */
-/*   Updated: 2023/05/28 18:36:45 by okraus           ###   ########.fr       */
+/*   Updated: 2023/06/10 14:05:52 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ typedef struct s_control
 	int		space;
 	int		ctrl;
 	int		time;
+	int		t;
 }	t_controls;
 
 typedef struct s_imgs
@@ -156,5 +157,8 @@ void	ft_check_map(t_map *map);
 void	ft_check_flood(t_map *map);
 void	ft_flood_map(t_map *map, int x, int y);
 void	ft_print_map(t_map *map);
+
+//	ft_free
+void	ft_free(t_max *max);
 
 #endif
