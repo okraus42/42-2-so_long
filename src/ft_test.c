@@ -6,11 +6,11 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 17:09:29 by okraus            #+#    #+#             */
-/*   Updated: 2023/05/28 15:12:32 by okraus           ###   ########.fr       */
+/*   Updated: 2023/06/24 16:55:26 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "header/so_long.h"
+#include "../header/so_long.h"
 
 void	ft_print_map(t_map *map)
 {

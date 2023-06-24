@@ -6,11 +6,11 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 15:35:23 by okraus            #+#    #+#             */
-/*   Updated: 2023/06/10 14:57:36 by okraus           ###   ########.fr       */
+/*   Updated: 2023/06/24 16:57:23 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "header/so_long.h"
+#include "../header/so_long.h"
 
 void	ft_game(t_max *max)
 {
@@ -136,7 +136,7 @@ int32_t	main(int32_t argc, char *argv[])
 		return (1);
 	}
 	ft_so_long(&max, argv[1]);
-	mlx = mlx_init(max.map->w * 32, max.map->h * 32, "MLX42", true);
+	mlx = mlx_init(max.map->w * 32, max.map->h * 32, "SO LONG", true);
 	if (!max.mlx)
 	{
 		puts(mlx_strerror(mlx_errno));
