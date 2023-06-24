@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 17:09:29 by okraus            #+#    #+#             */
-/*   Updated: 2023/06/24 16:55:26 by okraus           ###   ########.fr       */
+/*   Updated: 2023/06/24 18:31:19 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	ft_check_flood(t_map *map)
 		{
 			if (map->m[y][x] == 'E' || map->m[y][x] == 'C')
 			{
-				ft_printf("not flooded\n");
+				ft_printf_fd(2, "No valid path\n");
 				exit(6);
 			}
 			if (map->m[y][x] == 'c')
@@ -94,14 +94,12 @@ void	ft_check_map(t_map *map)
 			{
 				if (map->m[y][x] != '1')
 				{
-					ft_printf("Wall ko%i,%i\n", x, y);
+					ft_printf_fd(2, "Missing wall x=%i,y=%i\n", x, y);
 					exit(3);
 				}
-				ft_printf("Wall ok%i,%i\n", x, y);
 			}
 			else if (map->m[y][x] == 'P' && !(z & 1))
 			{
-				ft_printf("player position found%i, %i, %i\n", z, x, y);
 				map->p = 1;
 				map->px = x;
 				map->py = y;
@@ -119,14 +117,14 @@ void	ft_check_map(t_map *map)
 				map->ct++;
 			else if (map->m[y][x] != '1' && map->m[y][x] != '0')
 			{
-				ft_printf("invalid or duplicated char\n");
+				ft_printf_fd(2, "Invalid or duplicated char\n");
 				exit(4);
 			}
 			x++;
 		}
 		if (x < 3 || x != map->w)
 		{
-			ft_printf("width\n");
+			ft_printf_fd(2, "Wrong width\n");
 			exit(2);
 		}
 		y++;
@@ -141,8 +139,7 @@ void	ft_test_map(t_map *map)
 	if (map->h < 3)
 		exit(2);
 	ft_check_map(map);
-	printf("map ok\n");
 	ft_flood_map(map, map->px, map->py);
-	ft_put_strarray(map->m);
+	//ft_put_strarray(map->m);
 	ft_check_flood(map);
 }

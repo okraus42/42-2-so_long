@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 15:43:08 by okraus            #+#    #+#             */
-/*   Updated: 2023/06/10 14:05:52 by okraus           ###   ########.fr       */
+/*   Updated: 2023/06/24 19:51:26 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@
 typedef struct s_map
 {
 	char	**m;
+	char	*s;
 	int		w;
 	int		h;
 	int		p;
@@ -117,6 +118,7 @@ typedef struct s_max
 	t_map		*map;
 	t_controls	*key;
 	t_imgs		*img;
+	mlx_image_t	*steps;
 }	t_max;
 
 // PROTOTYPES

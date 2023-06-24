@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 17:05:57 by okraus            #+#    #+#             */
-/*   Updated: 2023/06/24 16:55:28 by okraus           ###   ########.fr       */
+/*   Updated: 2023/06/24 20:39:32 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,13 @@ static void	ft_domovep(t_max *max, int d)
 		max->img->pi[0].x += 32;
 		max->map->px++;
 	}
+	max->map->steps++;
+	free(max->map->s);
+	max->map->s = ft_itoa(max->map->steps);
+	max->map->s = ft_strjoin_freeright("Steps: ", max->map->s);
+	mlx_delete_image(max->mlx, max->steps);
+	max->steps = mlx_put_string(max->mlx, max->map->s, 10, 10);
+	ft_printf("Steps: %i\n", max->map->steps);
 	//usleep(100000);
 }
 
@@ -76,7 +83,6 @@ void	ft_moveplayer(t_max *max, int d)
 	if (!t)
 	{
 		ft_domovep(max, d);
-		max->map->steps++;
 		if (max->map->et)
 			ft_check_enemy(max);
 		if (max->map->et && max->map->p && (max->map->steps % 2 || max->map->steps % 3))

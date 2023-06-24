@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 17:04:17 by okraus            #+#    #+#             */
-/*   Updated: 2023/06/24 16:55:37 by okraus           ###   ########.fr       */
+/*   Updated: 2023/06/24 18:28:04 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,21 +23,18 @@ void	ft_put_background(t_max *max)
 
 	x = 0;
 	y = 0;
-	ft_printf("test00-1\n");
 	wall_xpm = mlx_load_xpm42("./imgs/wall.xpm42");
 	if (!wall_xpm)
 		exit(-4);
 	ground_xpm = mlx_load_xpm42("./imgs/ground.xpm42");
 	if (!ground_xpm)
 		exit(-4);
-	ft_printf("test0000\n");
 	wall_img = mlx_texture_to_image(max->mlx, &wall_xpm->texture);
 	if (!wall_img)
 		exit(-8);
 	grnd_img = mlx_texture_to_image(max->mlx, &ground_xpm->texture);
 	if (!grnd_img)
 		exit(-8);
-	ft_printf("test0001\n");
 	while (max->map->m[y])
 	{
 		x = 0;
@@ -59,7 +56,6 @@ void	ft_put_background(t_max *max)
 	}
 	mlx_delete_xpm42(wall_xpm);
 	mlx_delete_xpm42(ground_xpm);
-	ft_printf("test1111\n");
 }
 
 void	ft_put_collectibles(t_max *max)
@@ -263,7 +259,5 @@ void	ft_put_player(t_max *max)
 		}
 		y++;
 	}
-	ft_printf("ZZp== %i, px = %i, py = %i | %p\n",
-		max->map->p, max->map->px, max->map->py, &max->map->py);
 	mlx_delete_xpm42(play_xpm);
 }

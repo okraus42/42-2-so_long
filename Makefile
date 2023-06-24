@@ -6,7 +6,7 @@
 #    By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/04 15:40:17 by okraus            #+#    #+#              #
-#    Updated: 2023/06/24 16:54:55 by okraus           ###   ########.fr        #
+#    Updated: 2023/06/24 18:20:24 by okraus           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ LIBMLX		=	./MLX42
 LIBS		=	$(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
 LHEADERS	=	-I ./include -I $(LIBMLX)/include
 CC 			=	cc
-CFLAGS		=	-Wall -Wextra -Werror -O3
+CFLAGS		=	-Wall -Wextra -Werror -O3 -g
 CMFLAGS		=	-DCMAKE_C_COMPILER=/usr/bin/gcc -DCMAKE_CXX_COMPILER=/usr/bin/g++ -B build
 OBJ_DIR		=	objects/
 SLEEP		=	#sleep 0.5
@@ -148,6 +148,7 @@ $(LIBFT):
 
 clean:
 				@rm -rf $(OBJ_DIR)
+				@rm $(LIBFT)
 				@make fclean -s -C $(LIBFT_F)
 				@rm -rf $(LIBMLX)/build
 				@echo "$(RED)Objects removed!$(NRM_FORMAT)"
@@ -158,7 +159,6 @@ clean:
 # Remove the program after running clean
 
 fclean:			clean
-				@rm $(LIBFT)
 				@rm $(NAME)
 				@echo "$(RETURN)$(RED)Library and program deleted!$(NRM_FORMAT)"
 				@$(PRINT2)

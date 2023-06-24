@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 12:47:19 by okraus            #+#    #+#             */
-/*   Updated: 2023/06/24 16:55:38 by okraus           ###   ########.fr       */
+/*   Updated: 2023/06/24 18:34:28 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ void	ft_open_door(t_max *max)
 
 void	ft_check_door(t_max *max)
 {
-	ft_printf("Steps: %i\n", max->map->steps);
 	if (!max->map->cr && max->map->p && max->map->px == max->map->xx
 		&& max->map->py == max->map->xy)
 	{
