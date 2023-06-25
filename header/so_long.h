@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 15:43:08 by okraus            #+#    #+#             */
-/*   Updated: 2023/06/24 19:51:26 by okraus           ###   ########.fr       */
+/*   Updated: 2023/06/25 16:36:03 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,5 +162,6 @@ void	ft_print_map(t_map *map);
 
 //	ft_free
 void	ft_free(t_max *max);
+void	ft_exit(t_map *map, int n);
 
 #endif

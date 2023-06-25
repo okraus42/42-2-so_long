@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 13:54:12 by okraus            #+#    #+#             */
-/*   Updated: 2023/06/24 20:37:22 by okraus           ###   ########.fr       */
+/*   Updated: 2023/06/25 17:23:46 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,10 @@ void	ft_free(t_max *max)
 		max->map->ey = NULL;
 	}
 	free(max->map->s);
-	// void mlx_delete_texture(mlx_texture_t* texture);
-	// void mlx_delete_xpm42(xpm_t* xpm);
 }
 
+void	ft_exit(t_map *map, int n)
+{
+	ft_free_split(map->m);
+	exit(n);
+}

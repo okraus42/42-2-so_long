@@ -6,12 +6,11 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 12:47:19 by okraus            #+#    #+#             */
-/*   Updated: 2023/06/24 16:55:35 by okraus           ###   ########.fr       */
+/*   Updated: 2023/06/25 17:45:12 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/so_long.h"
-
 
 static void	ft_domovee(t_max *max, int i, int d)
 {
@@ -37,20 +36,8 @@ static void	ft_domovee(t_max *max, int i, int d)
 	}
 }
 
-static int	ft_checkmovee(t_map *map, int i, int x, int y)
+static int	ft_checkmovee2(t_map *map, int i, int x, int y)
 {
-	if (map->ey[i] > map->py + 3 && map->m[y - 1][x] != '1' && (i + map->steps) % 4)
-		return (4);
-	if (map->ex[i] > map->px + 3 && map->m[y][x - 1] != '1' && (i + map->steps) % 4)
-		return (3);
-	if (map->ey[i] < map->py - 2 && map->m[y + 1][x] != '1' && (i + map->steps) % 3)
-		return (2);
-	if (map->ex[i] < map->px - 2 && map->m[y][x + 1] != '1' && (i + map->steps) % 3)
-		return (1);
-	if (map->ex[i] < map->px && map->m[y][x + 1] != '1' && !((i + map->steps) % 2))
-		return (1);
-	if (map->ey[i] < map->py && map->m[y + 1][x] != '1' && !((1 + i + map->steps) % 2))
-		return (2);
 	if (map->ex[i] > map->px && map->m[y][x - 1] != '1' && (i + map->steps % 3))
 		return (3);
 	if (map->ey[i] > map->py && map->m[y - 1][x] != '1' && map->steps % 3)
@@ -70,6 +57,29 @@ static int	ft_checkmovee(t_map *map, int i, int x, int y)
 	return (0);
 }
 
+static int	ft_checkmovee(t_map *map, int i, int x, int y)
+{
+	if (map->ey[i] > map->py + 3 && map->m[y - 1][x] != '1'
+			&& (i + map->steps) % 4)
+		return (4);
+	if (map->ex[i] > map->px + 3 && map->m[y][x - 1] != '1'
+			&& (i + map->steps) % 4)
+		return (3);
+	if (map->ey[i] < map->py - 2 && map->m[y + 1][x] != '1'
+			&& (i + map->steps) % 3)
+		return (2);
+	if (map->ex[i] < map->px - 2 && map->m[y][x + 1] != '1'
+			&& (i + map->steps) % 3)
+		return (1);
+	if (map->ex[i] < map->px && map->m[y][x + 1] != '1'
+			&& !((i + map->steps) % 2))
+		return (1);
+	if (map->ey[i] < map->py && map->m[y + 1][x] != '1'
+			&& !((1 + i + map->steps) % 2))
+		return (2);
+	return (ft_checkmovee2(map, i, x, y));
+}
+
 void	ft_check_enemy(t_max *max)
 {
 	int	i;
@@ -77,7 +87,8 @@ void	ft_check_enemy(t_max *max)
 	i = 0;
 	while (max->map->e[i])
 	{
-		if (max->map->e[i] && max->map->px == max->map->ex[i] && max->map->py == max->map->ey[i])
+		if (max->map->e[i] && max->map->px == max->map->ex[i]
+			&& max->map->py == max->map->ey[i])
 		{
 			max->map->p = 0;
 			ft_printf("\n\nYou stepped on enemy and died:(\n\n\n");
@@ -101,7 +112,6 @@ void	ft_moveenemy(t_max *max, int i, int x, int y)
 
 	x = max->map->ex[i];
 	y = max->map->ey[i];
-
 	d = ft_checkmovee(max->map, i, x, y);
 	if (d)
 	{
@@ -112,8 +122,8 @@ void	ft_moveenemy(t_max *max, int i, int x, int y)
 
 void	ft_moveenemies(t_max *max)
 {
-	int x;
-	int y;
+	int	x;
+	int	y;
 	int	i;
 
 	i = 0;

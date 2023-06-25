@@ -6,35 +6,18 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 17:04:17 by okraus            #+#    #+#             */
-/*   Updated: 2023/06/24 18:28:04 by okraus           ###   ########.fr       */
+/*   Updated: 2023/06/25 17:41:11 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/so_long.h"
 
-void	ft_put_background(t_max *max)
+void	ft_put_walls(t_max *max, mlx_image_t *wall_img)
 {
-	int			x;
-	int			y;
-	xpm_t		*wall_xpm;
-	xpm_t		*ground_xpm;
-	mlx_image_t	*wall_img;
-	mlx_image_t	*grnd_img;
+	int	x;
+	int	y;
 
-	x = 0;
 	y = 0;
-	wall_xpm = mlx_load_xpm42("./imgs/wall.xpm42");
-	if (!wall_xpm)
-		exit(-4);
-	ground_xpm = mlx_load_xpm42("./imgs/ground.xpm42");
-	if (!ground_xpm)
-		exit(-4);
-	wall_img = mlx_texture_to_image(max->mlx, &wall_xpm->texture);
-	if (!wall_img)
-		exit(-8);
-	grnd_img = mlx_texture_to_image(max->mlx, &ground_xpm->texture);
-	if (!grnd_img)
-		exit(-8);
 	while (max->map->m[y])
 	{
 		x = 0;
@@ -45,7 +28,24 @@ void	ft_put_background(t_max *max)
 				if (mlx_image_to_window(max->mlx, wall_img, x * 32, y * 32) < 0)
 					exit(-5);
 			}
-			else
+			x++;
+		}
+		y++;
+	}
+}
+
+void	ft_put_ground(t_max *max, mlx_image_t *grnd_img)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	while (max->map->m[y])
+	{
+		x = 0;
+		while (max->map->m[y][x])
+		{
+			if (max->map->m[y][x] != '1')
 			{
 				if (mlx_image_to_window(max->mlx, grnd_img, x * 32, y * 32) < 0)
 					exit(-5);
@@ -54,25 +54,39 @@ void	ft_put_background(t_max *max)
 		}
 		y++;
 	}
+}
+
+void	ft_put_background(t_max *max)
+{
+	xpm_t		*wall_xpm;
+	xpm_t		*ground_xpm;
+	mlx_image_t	*wall_img;
+	mlx_image_t	*grnd_img;
+
+	wall_xpm = mlx_load_xpm42("./imgs/wall.xpm42");
+	if (!wall_xpm)
+		exit(-4);
+	wall_img = mlx_texture_to_image(max->mlx, &wall_xpm->texture);
+	if (!wall_img)
+		exit(-8);
+	ground_xpm = mlx_load_xpm42("./imgs/ground.xpm42");
+	if (!ground_xpm)
+		exit(-4);
+	grnd_img = mlx_texture_to_image(max->mlx, &ground_xpm->texture);
+	if (!grnd_img)
+		exit(-8);
+	ft_put_walls(max, wall_img);
+	ft_put_ground(max, grnd_img);
 	mlx_delete_xpm42(wall_xpm);
 	mlx_delete_xpm42(ground_xpm);
 }
 
-void	ft_put_collectibles(t_max *max)
+void	ft_put_collectibles3(t_max *max, mlx_image_t *col_img)
 {
-	int			x;
-	int			y;
-	xpm_t		*col_xpm;
-	mlx_image_t	*col_img;
+	int	x;
+	int	y;
 
-	x = 0;
 	y = 0;
-	col_xpm = mlx_load_xpm42("./imgs/collectible1.xpm42");
-	if (!col_xpm)
-		exit(-4);
-	col_img = mlx_texture_to_image(max->mlx, &col_xpm->texture);
-	if (!col_img)
-		exit(-8);
 	while (max->map->m[y])
 	{
 		x = 0;
@@ -88,6 +102,20 @@ void	ft_put_collectibles(t_max *max)
 		}
 		y++;
 	}
+}
+
+void	ft_put_collectibles(t_max *max)
+{
+	xpm_t		*col_xpm;
+	mlx_image_t	*col_img;
+
+	col_xpm = mlx_load_xpm42("./imgs/collectible1.xpm42");
+	if (!col_xpm)
+		exit(-4);
+	col_img = mlx_texture_to_image(max->mlx, &col_xpm->texture);
+	if (!col_img)
+		exit(-8);
+	ft_put_collectibles3(max, col_img);
 	mlx_delete_xpm42(col_xpm);
 }
 
@@ -98,7 +126,6 @@ void	ft_put_collectibles2(t_max *max)
 	xpm_t		*col2_xpm;
 	mlx_image_t	*col2_img;
 
-	x = 0;
 	y = 0;
 	col2_xpm = mlx_load_xpm42("./imgs/collectible2.xpm42");
 	if (!col2_xpm)
@@ -113,7 +140,8 @@ void	ft_put_collectibles2(t_max *max)
 		{
 			if (max->map->m[y][x] == 'c')
 			{
-				if (mlx_image_to_window(max->mlx, col2_img, (max->map->w + x) * 32, y * 32) < 0)
+				if (mlx_image_to_window(max->mlx,
+						col2_img, (max->map->w + x) * 32, y * 32) < 0)
 					exit(-5);
 				max->img->c2i = col2_img->instances;
 			}
@@ -132,7 +160,6 @@ void	ft_put_enemies(t_max *max)
 	xpm_t		*en_xpm;
 	mlx_image_t	*en_img;
 
-	x = 0;
 	y = 0;
 	i = 0;
 	en_xpm = mlx_load_xpm42("./imgs/enemy1.xpm42");
@@ -215,7 +242,8 @@ void	ft_put_opendoor(t_max *max)
 		{
 			if (max->map->m[y][x] == 'e')
 			{
-				if (mlx_image_to_window(max->mlx, opendoor_img, x * 32, y * 32) < 0)
+				if (mlx_image_to_window(max->mlx,
+						opendoor_img, x * 32, y * 32) < 0)
 					exit(-5);
 				max->img->doi = opendoor_img->instances;
 			}
@@ -225,7 +253,6 @@ void	ft_put_opendoor(t_max *max)
 	}
 	mlx_delete_xpm42(opendoor_xpm);
 }
-
 
 void	ft_put_player(t_max *max)
 {

@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 15:35:23 by okraus            #+#    #+#             */
-/*   Updated: 2023/06/24 20:39:37 by okraus           ###   ########.fr       */
+/*   Updated: 2023/06/25 18:00:16 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 void	ft_game(t_max *max)
 {
-	if ((max->key->w || max->key->a || max->key->s || max->key->d) && !(max->key->t))
+	if ((max->key->w || max->key->a || max->key->s || max->key->d)
+		&& !(max->key->t))
 	{
 		ft_moveplayer(max, max->key->w << 3 | max->key->s << 2
 			| max->key->a << 1 | max->key->d);
@@ -27,7 +28,7 @@ void	ft_game(t_max *max)
 	max->key->time++;
 	if (max->key->t && max->key->t < 10)
 	{
-		max->key->t++; 
+		max->key->t++;
 	}
 	else
 	{
@@ -91,8 +92,8 @@ void	ft_fill_map(t_map *map, char *mapfile)
 	}
 	free(line);
 	map->m = ft_split(gamemap, '\n');
-	ft_test_map(map);
 	free(gamemap);
+	ft_test_map(map);
 }
 
 void	ft_so_long2(t_max *max, char *mapfile)
@@ -101,8 +102,6 @@ void	ft_so_long2(t_max *max, char *mapfile)
 	ft_init_keys(max->key);
 	ft_fill_map(max->map, mapfile);
 	ft_update_map(max->map);
-	//ft_print_map(max->map);
-	//ft_put_strarray(max->map->m);
 }
 
 void	ft_so_long3(t_max *max)
@@ -112,7 +111,6 @@ void	ft_so_long3(t_max *max)
 	ft_put_collectibles2(max);
 	ft_put_opendoor(max);
 	ft_put_door(max);
-	//ft_update_map(max->map);
 	ft_put_enemies(max);
 	ft_put_player(max);
 	max->map->cr = max->map->ct;
@@ -166,5 +164,5 @@ int	main(int argc, char *argv[])
 		return (2);
 	}
 	ft_so_long(argv[1]);
-	return(0);
+	return (0);
 }

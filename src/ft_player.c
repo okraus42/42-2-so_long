@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 17:05:57 by okraus            #+#    #+#             */
-/*   Updated: 2023/06/24 20:39:32 by okraus           ###   ########.fr       */
+/*   Updated: 2023/06/25 18:01:35 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ static void	ft_domovep(t_max *max, int d)
 	mlx_delete_image(max->mlx, max->steps);
 	max->steps = mlx_put_string(max->mlx, max->map->s, 10, 10);
 	ft_printf("Steps: %i\n", max->map->steps);
-	//usleep(100000);
 }
 
 static int	ft_checkmovep(t_max *max, int x, int y)
@@ -56,7 +55,7 @@ static int	ft_checkmovep(t_max *max, int x, int y)
 				ft_open_door(max);
 			max->map->m[y][x] = 'o';
 		}
-		return (0);	
+		return (0);
 	}
 	return (1);
 }
@@ -69,8 +68,6 @@ void	ft_moveplayer(t_max *max, int d)
 
 	x = max->map->px;
 	y = max->map->py;
-	//ft_printf("p== %i, px = %i | %p, py = %i | %p\n",
-	//	max->map->p, max->map->px, &max->map->px, max->map->py, &max->map->py);
 	if (d == 1)
 		x++;
 	if (d == 2)
@@ -85,12 +82,14 @@ void	ft_moveplayer(t_max *max, int d)
 		ft_domovep(max, d);
 		if (max->map->et)
 			ft_check_enemy(max);
-		if (max->map->et && max->map->p && (max->map->steps % 2 || max->map->steps % 3))
+		if (max->map->et && max->map->p
+			&& (max->map->steps % 2 || max->map->steps % 3))
 			ft_moveenemies(max);
 		ft_check_door(max);
 	}
 	ft_init_key(max->key, 0);
 }
+
 // else if (t == 1)
 // 	ft_killplayer();
 // else if (t == 2)
