@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 16:21:31 by okraus            #+#    #+#             */
-/*   Updated: 2023/06/26 16:23:50 by okraus           ###   ########.fr       */
+/*   Updated: 2023/06/26 19:27:35 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	ft_check_enemy(t_max *max)
 	int	i;
 
 	i = 0;
-	while (max->map->e[i])
+	while (i < max->map->et && max->map->e[i])
 	{
 		if (max->map->e[i] && max->map->px == max->map->ex[i]
 			&& max->map->py == max->map->ey[i])
