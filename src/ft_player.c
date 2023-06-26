@@ -6,11 +6,22 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 17:05:57 by okraus            #+#    #+#             */
-/*   Updated: 2023/06/25 18:01:35 by okraus           ###   ########.fr       */
+/*   Updated: 2023/06/26 15:44:14 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/so_long.h"
+
+static void	ft_putsteps(t_max *max)
+{
+	max->map->steps++;
+	free(max->map->s);
+	max->map->s = ft_itoa(max->map->steps);
+	max->map->s = ft_strjoin_freeright("Steps: ", max->map->s);
+	mlx_delete_image(max->mlx, max->steps);
+	max->steps = mlx_put_string(max->mlx, max->map->s, 10, 10);
+	ft_printf("Steps: %i\n", max->map->steps);
+}
 
 static void	ft_domovep(t_max *max, int d)
 {
@@ -34,13 +45,7 @@ static void	ft_domovep(t_max *max, int d)
 		max->img->pi[0].x += 32;
 		max->map->px++;
 	}
-	max->map->steps++;
-	free(max->map->s);
-	max->map->s = ft_itoa(max->map->steps);
-	max->map->s = ft_strjoin_freeright("Steps: ", max->map->s);
-	mlx_delete_image(max->mlx, max->steps);
-	max->steps = mlx_put_string(max->mlx, max->map->s, 10, 10);
-	ft_printf("Steps: %i\n", max->map->steps);
+	ft_putsteps(max);
 }
 
 static int	ft_checkmovep(t_max *max, int x, int y)
@@ -60,9 +65,26 @@ static int	ft_checkmovep(t_max *max, int x, int y)
 	return (1);
 }
 
-void	ft_moveplayer(t_max *max, int d)
+void	ft_moveplayer2(t_max *max, int x, int y, int d)
 {
 	int	t;
+
+	t = ft_checkmovep(max, x, y);
+	if (!t)
+	{
+		ft_domovep(max, d);
+		if (max->map->et)
+			ft_check_enemy(max);
+		if (max->map->et && max->map->p
+			&& (max->map->steps % 2 || max->map->steps % 3))
+			ft_moveenemies(max);
+		ft_check_door(max);
+	}
+	ft_init_key(max->key, 0);
+}
+
+void	ft_moveplayer(t_max *max, int d)
+{
 	int	x;
 	int	y;
 
@@ -76,18 +98,7 @@ void	ft_moveplayer(t_max *max, int d)
 		y++;
 	if (d == 8)
 		y--;
-	t = ft_checkmovep(max, x, y);
-	if (!t)
-	{
-		ft_domovep(max, d);
-		if (max->map->et)
-			ft_check_enemy(max);
-		if (max->map->et && max->map->p
-			&& (max->map->steps % 2 || max->map->steps % 3))
-			ft_moveenemies(max);
-		ft_check_door(max);
-	}
-	ft_init_key(max->key, 0);
+	ft_moveplayer2(max, x, y, d);
 }
 
 // else if (t == 1)

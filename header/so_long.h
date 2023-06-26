@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 15:43:08 by okraus            #+#    #+#             */
-/*   Updated: 2023/06/25 16:36:03 by okraus           ###   ########.fr       */
+/*   Updated: 2023/06/26 15:15:37 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,6 @@ typedef struct s_imgs
 	mlx_instance_t	*dci;
 	mlx_instance_t	*doi;
 }	t_imgs;
-
 
 typedef struct s_max
 {
