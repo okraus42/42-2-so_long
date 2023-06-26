@@ -6,7 +6,7 @@
 #    By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/04 15:40:17 by okraus            #+#    #+#              #
-#    Updated: 2023/06/24 18:20:24 by okraus           ###   ########.fr        #
+#    Updated: 2023/06/26 16:27:45 by okraus           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,14 +55,19 @@ SRC_DIR		=	src/
 # Pipex functions
 
 SRC_S		=	ft_so_long \
+				ft_hook \
 				ft_test \
 				ft_player \
 				ft_collectible \
 				ft_enemy \
+				ft_checkenemy \
 				ft_init \
 				ft_free \
 				ft_update \
-				ft_draw
+				ft_draw \
+				ft_draw2 \
+				ft_draw3 \
+				ft_draw4 
 
 # Formating
 

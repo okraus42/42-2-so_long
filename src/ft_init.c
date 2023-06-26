@@ -6,11 +6,24 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 17:06:00 by okraus            #+#    #+#             */
-/*   Updated: 2023/06/24 19:48:18 by okraus           ###   ########.fr       */
+/*   Updated: 2023/06/26 16:29:12 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/so_long.h"
+
+void	ft_flood_map(t_map *map, int x, int y)
+{
+	if (map->m[y][x] == '1' || map->m[y][x] > 'a')
+		return ;
+	if (map->m[y][x] == '0')
+		map->m[y][x] = 'O';
+	map->m[y][x] += 32;
+	ft_flood_map(map, x + 1, y);
+	ft_flood_map(map, x - 1, y);
+	ft_flood_map(map, x, y + 1);
+	ft_flood_map(map, x, y - 1);
+}
 
 void	ft_init_key(t_controls *key, int a)
 {

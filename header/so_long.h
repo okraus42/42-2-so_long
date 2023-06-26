@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/04 15:43:08 by okraus            #+#    #+#             */
-/*   Updated: 2023/06/26 15:15:37 by okraus           ###   ########.fr       */
+/*   Updated: 2023/06/26 16:28:57 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,19 +124,30 @@ typedef struct s_max
 
 //	ft_draw
 void	ft_put_background(t_max *max);
+//	ft_draw2
 void	ft_put_collectibles(t_max *max);
 void	ft_put_collectibles2(t_max *max);
+//	ft_draw3
 void	ft_put_opendoor(t_max *max);
 void	ft_put_door(t_max *max);
+//	ft_draw4
 void	ft_put_enemies(t_max *max);
 void	ft_put_player(t_max *max);
+
+//	ft_hook
+void	ft_hook(void *param);
+void	ft_game(t_max *max);
 
 //	ft_player
 void	ft_moveplayer(t_max *max, int d);
 
 //	ft_enemy
 void	ft_moveenemies(t_max *max);
+
+//	ft_check_enemy
 void	ft_check_enemy(t_max *max);
+int		ft_checkmovee(t_map *map, int i, int x, int y);
+void	ft_domovee(t_max *max, int i, int d);
 
 // ft_collectible
 void	ft_remove_collectible(t_max *max, int x, int y);
@@ -145,6 +156,7 @@ void	ft_check_door(t_max *max);
 void	ft_check_time(t_max *max);
 
 //	ft_init
+void	ft_flood_map(t_map *map, int x, int y);
 void	ft_init_key(t_controls *key, int a);
 void	ft_init_map(t_map *map);
 void	ft_init_keys(t_controls *key);
@@ -156,7 +168,6 @@ void	ft_update_map(t_map *map);
 void	ft_test_map(t_map *map);
 void	ft_check_map(t_map *map);
 void	ft_check_flood(t_map *map);
-void	ft_flood_map(t_map *map, int x, int y);
 void	ft_print_map(t_map *map);
 
 //	ft_free
