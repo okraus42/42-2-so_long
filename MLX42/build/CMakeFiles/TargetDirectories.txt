@@ -1,3 +1,0 @@
-/nfs/homes/okraus/42core/2_so_long/mygit/MLX42/build/CMakeFiles/mlx42.dir
-/nfs/homes/okraus/42core/2_so_long/mygit/MLX42/build/CMakeFiles/edit_cache.dir
-/nfs/homes/okraus/42core/2_so_long/mygit/MLX42/build/CMakeFiles/rebuild_cache.dir
