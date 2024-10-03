@@ -6,7 +6,7 @@
 #    By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/04 15:40:17 by okraus            #+#    #+#              #
-#    Updated: 2023/06/26 16:27:45 by okraus           ###   ########.fr        #
+#    Updated: 2024/10/03 17:13:58 by okraus           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ LIBMLX		=	./MLX42
 LIBS		=	$(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
 LHEADERS	=	-I ./include -I $(LIBMLX)/include
 CC 			=	cc
-CFLAGS		=	-Wall -Wextra -Werror -O3 -g
+CFLAGS		=	-Wall -Wextra -Werror -g
 CMFLAGS		=	-DCMAKE_C_COMPILER=/usr/bin/gcc -DCMAKE_CXX_COMPILER=/usr/bin/g++ -B build
 OBJ_DIR		=	objects/
 SLEEP		=	#sleep 0.5
@@ -58,6 +58,7 @@ SRC_S		=	ft_so_long \
 				ft_hook \
 				ft_test \
 				ft_player \
+				malloc_wrap \
 				ft_collectible \
 				ft_enemy \
 				ft_checkenemy \
@@ -134,7 +135,7 @@ $(OBJ_DIR)%.o:	$(SRC_DIR)%.c
 
 $(NAME): 		$(OBJ)
 				@echo "$(RETURN)$(RETURN)$(GREEN)Libft compilation complete!$(NRM_FORMAT)"
-				@$(CC) $(CFLAGS) $(SRC) libft.a $(LIBS) $(LHEADERS) -o $(NAME)
+				@$(CC) $(CFLAGS) -Wl,-wrap,malloc -Wl,-wrap,free $(SRC) libft.a $(LIBS) $(LHEADERS) -o $(NAME)
 				@echo "$(RETURN)$(RETURN)$(GREEN)SO LONG compiled!$(NRM_FORMAT)"
 				@$(PRINT2)
 				@$(PRINT1)
